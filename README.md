@@ -1,4 +1,4 @@
-# AdvancedBusinessAPI
+# MottuAPI
 
 Projeto desenvolvido para a disciplina **Advanced Business Development with .NET**, com o objetivo de criar uma API RESTful utilizando ASP.NET Core, Entity Framework Core e banco de dados Oracle, seguindo os padrões modernos de desenvolvimento e documentação com OpenAPI (Swagger).
 
@@ -17,50 +17,50 @@ Projeto desenvolvido para a disciplina **Advanced Business Development with .NET
 
 ## Funcionalidades da API
 
-A API permite o **gerenciamento de clientes**, oferecendo as seguintes operações:
+A API permite a **gestão de motos no pátio da Mottu**, oferecendo as seguintes operações:
 
-| Método | Rota                | Descrição                      |
-|--------|---------------------|--------------------------------|
-| GET    | `/api/cliente`      | Retorna todos os clientes      |
-| GET    | `/api/cliente/{id}` | Retorna um cliente pelo ID     |
-| POST   | `/api/cliente`      | Cadastra um novo cliente       |
-| PUT    | `/api/cliente/{id}` | Atualiza os dados de um cliente|
-| DELETE | `/api/cliente/{id}` | Remove um cliente              |
+| Método | Rota                | Descrição                            |
+|--------|---------------------|----------------------------------------|
+| GET    | `/api/moto`         | Retorna todas as motos                |
+| GET    | `/api/moto/{id}`    | Retorna uma moto pelo ID              |
+| POST   | `/api/moto`         | Cadastra uma nova moto                |
+| PUT    | `/api/moto/{id}`    | Atualiza os dados de uma moto         |
+| DELETE | `/api/moto/{id}`    | Remove uma moto                       |
 
 ---
 
 ## Estrutura da entidade
 
-A entidade `Cliente` possui os seguintes campos:
+A entidade `Moto` possui os seguintes campos:
 
 ```csharp
-public class Cliente
+public class Moto
 {
     public int Id { get; set; }
-    public string Nome { get; set; }
-    public string Email { get; set; }
-    public string Cpf { get; set; }
+    public string Placa { get; set; }
+    public string Modelo { get; set; }
+    public string Status { get; set; }
 }
 ```
 ---
 
 ## Exemplos de Requisição (JSON)
-### POST /api/cliente
+### POST /api/moto
 ```csharp
 {
-  "nome": "João da Silva",
-  "email": "joao@email.com",
-  "cpf": "12345678900"
+  "placa": "ABC1234",
+  "modelo": "Sport",
+  "status": "disponível"
 }
 ```
 
-### PUT /api/cliente/1
+### PUT /api/moto/1
 ```csharp
 {
   "id": 1,
-  "nome": "João da Silva Editado",
-  "email": "joao_editado@email.com",
-  "cpf": "12345678900"
+  "placa": "ABC1234",
+  "modelo": "Sport",
+  "status": "em manutenção"
 }
 ```
 
