@@ -123,3 +123,18 @@ dotnet run
 https://localhost:5298/swagger
 ```
 > A porta pode variar conforme seu ambiente. Verifique o terminal após iniciar a aplicação.
+
+---
+
+## Nossos integrantes
+- **Gustavo Camargo de Andrade**
+- RM555562
+- 2TDSPF
+-------------------------------------------
+- **Rodrigo Souza Mantovanello**
+- RM555451
+- 2TDSPF
+-------------------------------------------
+- **Leonardo Cesar Rodrigues Nascimento**
+- RM558373
+- 2TDSPF
