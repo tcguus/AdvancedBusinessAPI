@@ -62,8 +62,7 @@ public class ManutencoesController(AppDbContext db) : ControllerBase
         await db.SaveChangesAsync();
         return NoContent();
     }
-
-    // sub-recurso: GET /api/v1/motos/{id}/manutencoes
+    
     [HttpGet("/api/v1/motos/{motoId:guid}/manutencoes")]
     public async Task<IActionResult> GetByMoto(Guid motoId)
     {
