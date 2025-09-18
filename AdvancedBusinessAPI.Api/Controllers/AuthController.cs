@@ -28,10 +28,10 @@ public class AuthController(AppDbContext db, IConfiguration cfg) : ControllerBas
     public record RegisterDto(string Nome, string Email, string Senha);
     public record LoginDto(string Email, string Senha);
     
-    /// <summary>Login</summary>
-    /// <remarks>Retorna um JWT válido por 8 horas.</remarks>
+    /// <summary>Cadastrar usuário</summary>
+    /// <remarks>Cria um novo usuário com nome, e-mail e senha.</remarks>
     [HttpPost("register")]
-    [SwaggerOperation(Summary = "Cadastrar usuário", Description = "Cria um novo usuário no sistema.")]
+    [SwaggerOperation(Summary = "Cadastrar usuário", Description = "Cria um novo usuário com nome, e-mail e senha. Retorna 201 com Location do recurso.")]
     [SwaggerResponse(201, "Usuário criado")]
     [SwaggerResponse(409, "Email já cadastrado")]
     [SwaggerResponse(400, "Dados inválidos")]
@@ -53,9 +53,9 @@ public class AuthController(AppDbContext db, IConfiguration cfg) : ControllerBas
     }
     
     /// <summary>Login</summary>
-    /// <remarks>Retorna um JWT válido por 8 horas.</remarks>
+    /// <remarks>Autentica um usuário e retorna um token JWT (expira em 8h).</remarks>
     [HttpPost("login")]
-    [SwaggerOperation(Summary = "Login", Description = "Autentica e retorna token JWT.")]
+    [SwaggerOperation(Summary = "Login", Description = "Autentica por e-mail e senha. Retorna JWT para usar no botão 'Authorize'.")]
     [SwaggerResponse(200, "Token gerado")]
     [SwaggerResponse(401, "Credenciais inválidas")]
     [SwaggerRequestExample(typeof(LoginDto), typeof(LoginRequestExample))]
@@ -85,7 +85,15 @@ public class AuthController(AppDbContext db, IConfiguration cfg) : ControllerBas
         return Ok(new { token = jwt });
     }
 
+    /// <summary>Identificação do usuário</summary>
+    /// <remarks>Endpoint utilitário para validar o token no app (opcional).</remarks>
     [HttpGet("me")]
+    [SwaggerOperation(
+      Summary = "Quem sou eu",
+      Description = "Retorna um payload simples confirmando o token. Pode ser protegido com [Authorize] se desejar."
+    )]
+    [SwaggerResponse(200, "OK")]
+    [SwaggerResponse(401, "Não autenticado")]
     public async Task<IActionResult> Me()
     {
         // opcional: requer [Authorize] + extrair userId do token

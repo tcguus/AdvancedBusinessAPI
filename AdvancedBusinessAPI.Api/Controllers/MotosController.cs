@@ -18,12 +18,12 @@ namespace AdvancedBusinessAPI.Api.Controllers;
 [Route("api/v1/[controller]")]
 public class MotosController(AppDbContext db, LinkGenerator linkGen) : ControllerBase
 {
-    [HttpGet]
     /// <summary>Listar motos</summary>
     /// <remarks>
-    /// Use <code>?page=1&amp;pageSize=20</code> para paginação.  
-    /// Use <code>?pageSize=0</code> para retornar **todas** as motos.  
-    /// Filtros disponíveis: <code>?modelo=</code> e <code>?placa=</code>.
+    /// Paginação: use <code>?page=1&amp;pageSize=20</code> (padrão).  
+    /// Todas: <code>?pageSize=0</code> retorna **todas** as motos (sem paginação).  
+    /// Filtros: <code>?modelo=</code>, <code>?placa=</code>.  
+    /// Retorna links **HATEOAS** em cada item e na coleção.
     /// </remarks>
     [HttpGet]
     [SwaggerOperation(Summary = "Listar motos", Description = "Lista motos com filtros e paginação. Retorna HATEOAS.")]
@@ -95,7 +95,16 @@ public class MotosController(AppDbContext db, LinkGenerator linkGen) : Controlle
 
     }
 
+    
+    /// <summary>Detalhar moto</summary>
+    /// <remarks>Retorna a moto pelo ID com links HATEOAS.</remarks>
     [HttpGet("{id:guid}")]
+    [SwaggerOperation(
+      Summary = "Obter moto por ID",
+      Description = "Retorna a moto correspondente ao ID informado com links HATEOAS."
+    )]
+    [SwaggerResponse(200, "Moto encontrada")]
+    [SwaggerResponse(404, "Moto não encontrada")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var m = await db.Motos.FindAsync(id);
@@ -110,9 +119,18 @@ public class MotosController(AppDbContext db, LinkGenerator linkGen) : Controlle
             }
         });
     }
-
-    [HttpPost]
+  
     /// <summary>Criar moto</summary>
+    /// <remarks>
+    /// A placa deve ser **única**.  
+    /// Exemplo válido:
+    /// <code>
+    /// {
+    ///   "placa":"XYZ1A23","modelo":"CG 160","ano":2023,"status": "Disponivel",
+    ///   "latitude": -23.55, "longitude": -46.63
+    /// }
+    /// </code>
+    /// </remarks>
     [HttpPost]
     [SwaggerOperation(Summary = "Criar moto", Description = "Cria uma nova moto (placa única).")]
     [SwaggerResponse(201, "Criado (Location aponta para o recurso)")]
@@ -149,7 +167,15 @@ public class MotosController(AppDbContext db, LinkGenerator linkGen) : Controlle
         return NoContent();
     }
 
+    /// <summary>Excluir moto</summary>
+    /// <remarks>Remove a moto pelo ID. Operação irreversível.</remarks>
     [HttpDelete("{id:guid}")]
+    [SwaggerOperation(
+      Summary = "Excluir moto",
+      Description = "Remove a moto pelo ID. Retorna 204 se removida."
+    )]
+    [SwaggerResponse(204, "Excluída")]
+    [SwaggerResponse(404, "Moto não encontrada")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var m = await db.Motos.FindAsync(id);
