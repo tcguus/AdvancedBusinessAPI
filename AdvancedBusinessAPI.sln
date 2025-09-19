@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-#
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedBusinessAPI.Domain", "AdvancedBusinessAPI.Domain\AdvancedBusinessAPI.Domain.csproj", "{C024D4F5-781D-4B42-806F-3BA0830C5A60}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedBusinessAPI.Application", "AdvancedBusinessAPI.Application\AdvancedBusinessAPI.Application.csproj", "{8E47F2A0-C458-4109-A47C-C619D90F5D10}"
@@ -8,6 +8,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedBusinessAPI.Infrastructure", "AdvancedBusinessAPI.Infrastructure\AdvancedBusinessAPI.Infrastructure.csproj", "{1887843E-06B7-4E9B-95B3-6B73974CE3BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedBusinessAPI.Api", "AdvancedBusinessAPI.Api\AdvancedBusinessAPI.Api.csproj", "{F50C5A67-E1FF-4AC7-8937-DFA648CEF8B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedBusinessAPI.Tests", "AdvancedBusinessAPI.Tests\AdvancedBusinessAPI.Tests.csproj", "{007BB8B0-A7EA-420E-8B37-F6C67A223DEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,5 +33,9 @@ Global
 		{F50C5A67-E1FF-4AC7-8937-DFA648CEF8B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F50C5A67-E1FF-4AC7-8937-DFA648CEF8B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F50C5A67-E1FF-4AC7-8937-DFA648CEF8B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{007BB8B0-A7EA-420E-8B37-F6C67A223DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{007BB8B0-A7EA-420E-8B37-F6C67A223DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{007BB8B0-A7EA-420E-8B37-F6C67A223DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{007BB8B0-A7EA-420E-8B37-F6C67A223DEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

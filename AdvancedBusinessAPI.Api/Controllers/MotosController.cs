@@ -39,8 +39,7 @@ public class MotosController(AppDbContext db, LinkGenerator linkGen) : Controlle
             q = q.Where(m => m.Modelo.Contains(modelo));
         if (!string.IsNullOrWhiteSpace(placa))
             q = q.Where(m => m.Placa.Contains(placa));
-
-        // ordenação simples
+      
         q = (sortBy.ToLower(), sortDir.ToLower()) switch
         {
             ("placa", "desc") => q.OrderByDescending(m => m.Placa),
@@ -51,7 +50,6 @@ public class MotosController(AppDbContext db, LinkGenerator linkGen) : Controlle
             _                 => q.OrderBy(m => m.Modelo),
         };
 
-        // se pageSize=0, devolve tudo (atende teu pedido)
         if (pageSize == 0)
         {
             var all = await q.ToListAsync();
@@ -61,11 +59,8 @@ public class MotosController(AppDbContext db, LinkGenerator linkGen) : Controlle
             });
         }
 
-        // paginação
         var total = await q.CountAsync();
         var items = await q.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-
-        // links HATEOAS
         var lastPage = Math.Max(1, (int)Math.Ceiling(total / (double)pageSize));
         var navLinks = new List<object> { SelfLink(page, pageSize) };
         if (page > 1) navLinks.Add(new { rel = "prev", href = UrlFor(page - 1, pageSize), method = "GET" });
@@ -148,8 +143,14 @@ public class MotosController(AppDbContext db, LinkGenerator linkGen) : Controlle
         await db.SaveChangesAsync();
         return Created($"/api/v1/motos/{input.Id}", new { input.Id });
     }
-
+    
+    /// <summary>Atualizar moto</summary>
+    /// <remarks>Atualiza todos os campos. Operação idempotente.</remarks>
     [HttpPut("{id:guid}")]
+    [SwaggerOperation(Summary = "Atualizar moto", Description = "Atualiza os dados da moto. Retorna 204 em sucesso.")]
+    [SwaggerResponse(204, "Atualizado")]
+    [SwaggerResponse(404, "Moto não encontrada")]
+    [SwaggerResponse(400, "Dados inválidos")]
     public async Task<IActionResult> Put(Guid id, [FromBody] Moto input)
     {
         var m = await db.Motos.FindAsync(id);

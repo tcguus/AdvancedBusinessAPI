@@ -123,6 +123,7 @@ public class ManutencoesController(AppDbContext db) : ControllerBase
     Description = "Lista as manutenções vinculadas à moto informada."
   )]
   [SwaggerResponse(200, "Lista de manutenções da moto")]
+    
   [SwaggerResponse(404, "Moto não encontrada")]
     public async Task<IActionResult> GetByMoto(Guid motoId)
     {
