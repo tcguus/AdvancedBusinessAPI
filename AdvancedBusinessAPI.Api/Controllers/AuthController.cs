@@ -24,7 +24,6 @@ namespace AdvancedBusinessAPI.Api.Controllers;
 public class AuthController(AppDbContext db, IConfiguration cfg) : ControllerBase
 {
   
-  
     public record RegisterDto(string Nome, string Email, string Senha);
     public record LoginDto(string Email, string Senha);
     
@@ -96,7 +95,6 @@ public class AuthController(AppDbContext db, IConfiguration cfg) : ControllerBas
     [SwaggerResponse(401, "Não autenticado")]
     public async Task<IActionResult> Me()
     {
-        // opcional: requer [Authorize] + extrair userId do token
         return Ok(new { ok = true });
     }
 }
