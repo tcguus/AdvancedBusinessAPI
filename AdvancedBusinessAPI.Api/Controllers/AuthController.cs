@@ -12,8 +12,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 using AdvancedBusinessAPI.Api.SwaggerExamples;
 using AdvancedBusinessAPI.Application.DTOs;
-
-
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace AdvancedBusinessAPI.Api.Controllers;
@@ -29,6 +28,7 @@ public class AuthController(AppDbContext db, IConfiguration cfg) : ControllerBas
     
     /// <summary>Cadastrar usuário</summary>
     /// <remarks>Cria um novo usuário com nome, e-mail e senha.</remarks>
+    [AllowAnonymous]
     [HttpPost("register")]
     [SwaggerOperation(Summary = "Cadastrar usuário", Description = "Cria um novo usuário com nome, e-mail e senha. Retorna 201 com Location do recurso.")]
     [SwaggerResponse(201, "Usuário criado")]
@@ -53,6 +53,7 @@ public class AuthController(AppDbContext db, IConfiguration cfg) : ControllerBas
     
     /// <summary>Login</summary>
     /// <remarks>Autentica um usuário e retorna um token JWT (expira em 8h).</remarks>
+    [AllowAnonymous]
     [HttpPost("login")]
     [SwaggerOperation(Summary = "Login", Description = "Autentica por e-mail e senha. Retorna JWT para usar no botão 'Authorize'.")]
     [SwaggerResponse(200, "Token gerado")]
