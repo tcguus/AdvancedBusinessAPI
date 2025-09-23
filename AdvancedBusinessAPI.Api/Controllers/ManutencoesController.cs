@@ -1,5 +1,6 @@
 using AdvancedBusinessAPI.Domain;
 using AdvancedBusinessAPI.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
@@ -8,6 +9,7 @@ namespace AdvancedBusinessAPI.Api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
+[Authorize] 
 [SwaggerTag("Gestão de Manutenções (CRUD e consulta por Moto).")]
 public class ManutencoesController(AppDbContext db) : ControllerBase
 {

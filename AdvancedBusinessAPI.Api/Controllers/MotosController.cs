@@ -16,6 +16,7 @@ namespace AdvancedBusinessAPI.Api.Controllers;
 [ApiController]
 [SwaggerTag("Gestão de Motos")]
 [Route("api/v1/[controller]")]
+[Authorize] 
 public class MotosController(AppDbContext db, LinkGenerator linkGen) : ControllerBase
 {
     /// <summary>Listar motos</summary>
